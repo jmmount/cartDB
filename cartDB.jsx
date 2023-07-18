@@ -181,22 +181,14 @@ const Products = (props) => {
   };
  
  
- const restockProducts = async (url) => {
-  try {
-    const response = await axios.get(url);
-    const responseData = response.data.data;
-
-    // Ensure responseData is an array of items
-    const newItems = responseData.map((item) => {
-      const { name, country, cost, instock } = item.attributes;
+  const restockProducts = (url) => {
+    doFetch(url);
+    let newItems = data.data.map((item) => {
+      let { name, country, cost, instock } = item.attributes;
       return { name, country, cost, instock };
     });
-
-    setItems((prevItems) => [...prevItems, ...newItems]);
-  } catch (error) {
-    console.error('Error fetching additional data:', error);
-  }
-};
+    setItems([...items, ...newItems]);
+  };
 
 
 
